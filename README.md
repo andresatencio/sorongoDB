@@ -9,3 +9,4 @@
 	<li>Phonegap: se creo un plugin con la parte nativa (Java) para poder usar el driver de conexion OJDBC</li>
 </ul>
 
+

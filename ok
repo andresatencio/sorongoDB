@@ -1,0 +1,27 @@
+[33mcommit 110e09a1ab93c17af6d733b9cadf09b040064f7b[m
+Author: Andres Atencio <and.atencio@gmail.com>
+Date:   Mon Jun 3 09:56:10 2013 -0300
+
+    Readmeeee
+
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 6a7d350..8e25392 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -1,7 +1,11 @@[m
+[31m-sorongoDB[m
+[31m-=========[m
+[32m+[m[32m<h1>SorongoDB</h1>[m
+ [m
+[31m-Conexion a Oracle 10g con Phonegap.[m
+[32m+[m[32m<h3>Conexion a Oracle 10g con Phonegap.[m
+[32m+[m[32m</h3>[m
+[32m+[m[32m<hr>[m
+[32m+[m[32m<h4>Especificaciones:</h4>[m
+[32m+[m[32m<ul>[m
+[32m+[m	[32m<li>Vista: JQueryMobile</li>[m
+[32m+[m	[32m<li>Phonegap: se creo un plugin con la parte nativa (Java) para poder usar el driver de conexion OJDBC</li>[m
+[32m+[m[32m</ul>[m
+ [m
+[31m-Vista- JQueryMobile[m
+[31m-Phonegap, se creo un plugin con la parte nativa (Java) para poder usar el driver de conexion OJDBC[m
