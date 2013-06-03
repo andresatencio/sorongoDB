@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>SorongoDB</title>
+
+	  
+	  
+     <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
+  <link rel="stylesheet" href="jqueryMobile/jquery.mobile-1.3.1.min.css">
+  <!-- jQuery and jQuery Mobile -->
+  <script src="jqueryMobile/jquery-1.9.1.min.js"></script>
+  <script src="jqueryMobile/jquery.mobile-1.3.1.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+  
+
+
+    $(function(){
+
+      var IP,
+          PUERTO,
+          DB,
+          USER,
+          PASS;
+
+
+      var db = new ConnectionDB();
+
+
+      $("#CONECTAR").on("tap", function(){
+
+          IP = $("#IP").val(),
+          PUERTO = $("#PUERTO").val(),
+          DB = $("#DB").val(),
+          USER = $("#USER").val(),
+          PASS = $("#PASS").val();
+
+
+          db.conectar(IP, PUERTO, DB, USER, PASS,
+          function(data){
+            alert(data);
+            if (data == "Error en la conexion"){
+              $.mobile.changePage($("#page1"));
+            }else{
+            $.mobile.changePage($("#page2"));
+            }
+          },
+          function(data){
+            alert(data);
+          }
+          );
+
+
+      });
+
+      $("#CONSULTAR").on("tap", function(){
+          db.consultar($("#QUERY").val(), function(data){
+            $("#console").html(data);
+          },
+          function(data){
+            $("#console").html(data);
+          })
+      });
+    });
+
+      var ConnectionDB = function() {
+      };
+       
+  
+
+
+      ConnectionDB.prototype.conectar = function(IP, PUERTO, DB, USER, PASS, successCallback, failureCallback) {
+          cordova.exec(
+                  successCallback,
+                  failureCallback,
+                  'ConnectionDB',      // Nombre con el que está registrado el plugin Java
+                  'CONECTAR',  // Acción invocada
+                  [IP, PUERTO, DB, USER, PASS]);  
+      };
+      ConnectionDB.prototype.consultar = function(QUERY, successCallback,
+                failureCallback) {
+        cordova.exec(
+                  successCallback,
+                failureCallback,
+                  'ConnectionDB',      // Nombre con el que está registrado el plugin Java
+                  'CONSULTA',  // Acción invocada
+                  [QUERY]);  
+      };
+       ConnectionDB.prototype.sorongo = function() {
+        cordova.exec(
+                  ok,
+                  ko,
+                  'ConnectionDB',      // Nombre con el que está registrado el plugin Java
+                  'SORONGO',  // Acción invocada
+                  [IP, PUERTO, DB, USER, PASS, QUERY]);  
+      };
+        var onDeviceReady = function() {
+            var db = new ConnectionDB();
+            document.getElementById("devready").innerHTML = "OOO";
+            db.sorongo(IP, PUERTO, DB, USER, PASS, QUERY, ok, ko);
+        };
+    
+
+
+
+	     
+        
+</script>  
+
+   
+    
+   
+</head>
+<body>
+<!-- Home -->
+
+
+<div data-role="page" id="page1">
+    <div data-theme="b" data-role="header" data-position="fixed">
+        <h4>
+            SorongoDB
+        </h4>
+    </div>
+    <div data-role="content">
+        <div data-role="fieldcontain">
+            <label for="IP">
+                Ip
+            </label>
+            <input name="" id="IP" placeholder="" value="" type="text">
+        </div>
+        <div data-role="fieldcontain">
+            <label for="PUERTO">
+                Puerto
+            </label>
+            <input name="" id="PUERTO" placeholder="" value="" type="text">
+        </div>
+        <div data-role="fieldcontain">
+            <label for="DB">
+                Nombre DB
+            </label>
+            <input name="" id="DB" placeholder="" value="" type="text">
+        </div>
+        <div data-role="fieldcontain">
+            <label for="USER">
+                User
+            </label>
+            <input name="" id="USER" placeholder="" value="" type="text">
+        </div>
+        <div data-role="fieldcontain">
+            <label for="PASS">
+                Pass
+            </label>
+            <input name="" id="PASS" placeholder="" value="" type="text">
+        </div>
+        <a id="CONECTAR" data-role="button" data-theme="b">
+            Conectar
+        </a>
+    </div>
+</div>
+
+<div data-role="page" id="page2">
+    <div data-theme="b" data-role="header" data-position="fixed">
+        <h4>
+            SorongoDB
+        </h4>
+    </div>
+    <div data-role="content">
+      <div data-role="fieldcontain">
+            <label for="PASS">
+                Consulta
+            </label>
+            <input name="" id="QUERY" placeholder="" value="" type="text">
+        </div>
+      <a id="CONSULTAR" data-role="button" data-theme="b">
+            Consultar
+        </a>
+        <p id="console"></p>
+    </div>
+</div>
+
+</body>
+</html>
